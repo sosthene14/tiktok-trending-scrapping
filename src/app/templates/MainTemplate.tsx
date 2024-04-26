@@ -56,7 +56,10 @@ const MainTemplate = ({ posts }: MainTemplateProps) => {
               className="bg-gray-100 pt-10  rounded-lg flex-rap  flex flex-col sm:flex-row"
             >
               <div className=" rounded-md  aspect-h-9 w-full">
-                <Lite-tiktok  videoid={post.videoId} autoload></Lite-tiktok>
+                {
+                    // @ts-ignore
+                    <Lite-tiktok  videoid={post.videoId} autoload></Lite-tiktok>
+                }
               </div>
               <div className="sm:w-2/3 overflow-hidden">
                 <h2 className="text-lg font-semibold text-gray-900 mb-2">
