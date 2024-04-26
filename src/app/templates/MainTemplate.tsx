@@ -1,6 +1,5 @@
 import { PostInterface } from "../../interfaces/interfaces";
 import CountryFlagsComponent from "../components/CountryFlagsComponent";
-import { useState, useEffect } from "react";
 import '@justinribeiro/lite-tiktok';
 
 interface MainTemplateProps {
@@ -8,35 +7,7 @@ interface MainTemplateProps {
 }
 
 const MainTemplate = ({ posts }: MainTemplateProps) => {
-  const [visiblePosts, setVisiblePosts] = useState<PostInterface[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleScroll = () => {
-    const bottom =
-      Math.ceil(window.innerHeight + window.scrollY) >=
-      document.documentElement.scrollHeight;
-    if (bottom && !isLoading) {
-      setIsLoading(true);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (isLoading) {
-      const nextPagePosts = posts?.slice(
-        visiblePosts.length,
-        visiblePosts.length + 10
-      );
-      setTimeout(() => {
-        setVisiblePosts((prevPosts) => [...prevPosts, ...nextPagePosts]);
-        setIsLoading(false);
-      }, 1000);
-    }
-  }, [isLoading]);
 
   return (
     <div className="min-h-screen w-full px-4 sm:px-6 lg:px-8 py-10 bg-gray-900 flex flex-col justify-center items-center">
@@ -50,7 +21,7 @@ const MainTemplate = ({ posts }: MainTemplateProps) => {
 
         
         <div className="grid gap-6">
-          {visiblePosts?.map((post, index) => (
+          {posts?.map((post, index) => (
             <div
               key={index}
               className="bg-gray-100 pt-10  rounded-lg flex-rap  flex flex-col sm:flex-row"
@@ -79,11 +50,6 @@ const MainTemplate = ({ posts }: MainTemplateProps) => {
           ))}
         </div>
 
-        {isLoading && (
-          <div className="flex justify-center mt-4">
-            <p className="text-gray-600">Chargement en cours...</p>
-          </div>
-        )}
       </div>
     </div>
   );
