@@ -8,7 +8,7 @@ export default function MainComponent() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/get_posts');
+      const response = await axios.get('https://tiktok-trend-scrapping-backend.vercel.app/get_posts');
       console.log(response.data);
       return response.data.posts;
     } catch (error) {
